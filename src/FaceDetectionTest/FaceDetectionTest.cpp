@@ -60,7 +60,7 @@ void hog_gamma_adjust_test()
 
     // 转换成浮点
     face_gray.convertTo(face_gamma, CV_32FC1);
-    // 归一化: [0.0, 1.0]
+    // 浮点归一化: [0.0, 1.0]
     face_gamma *= 1.0 / 255.0;
 
     // gamma 校正: 平方根法
