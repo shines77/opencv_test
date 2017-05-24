@@ -18,7 +18,7 @@ After unpacking the [opencv-3.2.0-vc14.exe] file, just copy the `build` director
 
 一些关于 OpenCV 的测试代码。
 
-## Notes
+## 说明
 
 为了减小仓库的文件大小，不造成重复资源的浪费（最主要是上传到GitHub速度很慢，而且也的确是浪费资源），`/deps` 目录下面的 `opencv build file for vc14` 文件需要自己下载。
 
