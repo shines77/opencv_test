@@ -2,7 +2,7 @@
 
 Some test routines about OpenCV.
 
-## Notes
+## Description
 
 In order to reduce the size of the repository file, do not cause duplication of resources waste (the most important is uploaded to GitHub very slow, but also to determine is a waste of resources), `/deps` directory the following "`opencv build file for vc14`" need to download yourself.
 
@@ -12,18 +12,18 @@ The download address is as follows: [OpenCV-3.2.0-vc14.exe](https://github.com/o
 
 After unpacking the [opencv-3.2.0-vc14.exe] file, just copy the `build` directory to the `/deps/build` directory and rename the `/deps/build/build` directory to `/deps/build/opencv`.
 
-# [Chinese -- ÖĞÎÄËµÃ÷]
+# [Chinese -- ä¸­æ–‡è¯´æ˜]
 
 ## opencv_test
 
-Ò»Ğ©¹ØÓÚ OpenCV µÄ²âÊÔ´úÂë¡£
+ä¸€äº›å…³äº OpenCV çš„æµ‹è¯•ä»£ç ã€‚
 
-## ËµÃ÷
+## è¯´æ˜
 
-ÎªÁË¼õĞ¡²Ö¿âµÄÎÄ¼ş´óĞ¡£¬²»Ôì³ÉÖØ¸´×ÊÔ´µÄÀË·Ñ£¨×îÖ÷ÒªÊÇÉÏ´«µ½GitHubËÙ¶ÈºÜÂı£¬¶øÇÒÒ²µÄÈ·ÊÇÀË·Ñ×ÊÔ´£©£¬`/deps` Ä¿Â¼ÏÂÃæµÄ `opencv build file for vc14` ÎÄ¼şĞèÒª×Ô¼ºÏÂÔØ¡£
+ä¸ºäº†å‡å°ä»“åº“çš„æ–‡ä»¶å¤§å°ï¼Œä¸é€ æˆé‡å¤èµ„æºçš„æµªè´¹ï¼ˆæœ€ä¸»è¦æ˜¯ä¸Šä¼ åˆ°GitHubé€Ÿåº¦å¾ˆæ…¢ï¼Œè€Œä¸”ä¹Ÿçš„ç¡®æ˜¯æµªè´¹èµ„æºï¼‰ï¼Œ`/deps` ç›®å½•ä¸‹é¢çš„ `opencv build file for vc14` æ–‡ä»¶éœ€è¦è‡ªå·±ä¸‹è½½ã€‚
 
-ÏÂÔØµØÖ·ÈçÏÂ£º[opencv-3.2.0-vc14.exe](https://github.com/opencv/opencv/releases/download/3.2.0/opencv-3.2.0-vc14.exe)
+ä¸‹è½½åœ°å€å¦‚ä¸‹ï¼š[opencv-3.2.0-vc14.exe](https://github.com/opencv/opencv/releases/download/3.2.0/opencv-3.2.0-vc14.exe)
 
-## Ê¹ÓÃ·½·¨
+## ä½¿ç”¨æ–¹æ³•
 
-°Ñ [opencv-3.2.0-vc14.exe] ÎÄ¼ş½âÑ¹Ö®ºó£¬Ö»ĞèÒª°Ñ `build` Ä¿Â¼¿½±´µ½ `/deps/build` Ä¿Â¼ÏÂ£¬²¢°Ñ `/deps/build/build` Ä¿Â¼ ¸ÄÃûÎª `/deps/build/opencv` ¼´¿É¡£
+æŠŠ [opencv-3.2.0-vc14.exe] æ–‡ä»¶è§£å‹ä¹‹åï¼Œåªéœ€è¦æŠŠ `build` ç›®å½•æ‹·è´åˆ° `/deps/build` ç›®å½•ä¸‹ï¼Œå¹¶æŠŠ `/deps/build/build` ç›®å½• æ”¹åä¸º `/deps/build/opencv` å³å¯ã€‚
