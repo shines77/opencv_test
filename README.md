@@ -10,7 +10,7 @@ The download address is as follows: [OpenCV-3.2.0-vc14.exe](https://github.com/o
 
 ## Instructions
 
-After unpacking the [opencv-3.2.0-vc14.exe] file, just copy the `build` directory to the `/deps/build` directory and rename the `/deps/build/build` directory to `/deps/build/opencv`.
+After unpacking the `[opencv-3.2.0-vc14.exe]` file, just copy the `build` directory to the `/deps/build` directory and rename the `/deps/build/build` directory to `/deps/build/opencv`.
 
 # [Chinese -- 中文说明]
 
@@ -26,4 +26,4 @@ After unpacking the [opencv-3.2.0-vc14.exe] file, just copy the `build` director
 
 ## 使用方法
 
-把 [opencv-3.2.0-vc14.exe] 文件解压之后，只需要把 `build` 目录拷贝到 `/deps/build` 目录下，并把 `/deps/build/build` 目录 改名为 `/deps/build/opencv` 即可。
+把 `[opencv-3.2.0-vc14.exe]` 文件解压之后，只需要把 `build` 目录拷贝到 `/deps/build` 目录下，并把 `/deps/build/build` 目录 改名为 `/deps/build/opencv` 即可。
