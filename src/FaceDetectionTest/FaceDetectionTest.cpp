@@ -11,11 +11,12 @@
 #include <opencv2/objdetect/objdetect.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/features2d.hpp>
 
 //
 // See: http://blog.csdn.net/hujingshuang/article/details/47337707/
 //
-void hog_gamma_adjust_test()
+void HOG_gamma_adjust_test()
 {
     cv::Mat face = cv::imread("..\\..\\..\\data\\FaceDetectionTest\\hog\\test.bmp", cv::IMREAD_ANYCOLOR);
     cv::Mat face_gray;
@@ -83,7 +84,7 @@ void hog_gamma_adjust_test()
     cv::waitKey();
 }
 
-void hog_gradient_test()
+void HOG_gradient_test()
 {
     cv::Mat face = cv::imread("..\\..\\..\\data\\FaceDetectionTest\\hog\\test.bmp", cv::IMREAD_ANYCOLOR);
     cv::Mat face_gray;
@@ -150,13 +151,74 @@ void hog_gradient_test()
     cv::waitKey();
 }
 
+void FAST_test()
+{
+    cv::Mat face = cv::imread("..\\..\\..\\data\\FaceDetectionTest\\fast\\test.png", cv::IMREAD_ANYCOLOR);
+    cv::Mat face_gray;
+    cv::Mat face_gamma, face_gamma_out;
+
+    cv::imshow("3.Face - 原图", face);
+
+    // 转换为灰度图, RGBA, BGRA: CV_8UC4, RGB, BGR CV_8UC3, Gray: CV_8UC1
+    if (face.type() == CV_8UC4) {
+        cvtColor(face, face_gray, CV_BGRA2GRAY, 1);
+    }
+    else if (face.type() == CV_8UC3) {
+        cvtColor(face, face_gray, CV_BGR2GRAY, 1);
+    }
+    else if (face.type() == CV_8UC2) {
+        cvtColor(face, face_gray, CV_BGR5652GRAY, 1);
+    }
+    else if (face.type() == CV_8UC1) {
+        face.copyTo(face_gray);
+    }
+
+    cv::imshow("3.Face - 灰度图", face_gray);
+
+    // 转换成浮点
+    face_gray.convertTo(face_gamma, CV_32FC1);
+    // 浮点归一化: [0.0, 1.0]
+    face_gamma *= 1.0 / 255.0;
+
+    // gamma 校正: 平方根法
+    cv::sqrt(face_gamma, face_gamma);
+    // 像素归一化: [0, 255]
+    cv::normalize(face_gamma, face_gamma_out, 0.0, 255.0, cv::NORM_MINMAX, CV_8UC1);
+
+    cv::imshow("3.Gamma校正", face_gamma_out);
+
+    cv::Ptr<cv::FastFeatureDetector> detector =
+        cv::FastFeatureDetector::create(10, true, cv::FastFeatureDetector::TYPE_9_16);
+
+    std::vector<cv::KeyPoint> key_points;
+    detector->detect(face_gamma_out, key_points);
+
+    cv::Mat fast_9_16, fast_7_12;
+    cv::drawKeypoints(face_gamma_out, key_points, fast_9_16, cv::Scalar::all(-1), 0);
+
+    cv::imshow("3.FAST关键点9", fast_9_16);
+
+    detector = cv::FastFeatureDetector::create(10, true, cv::FastFeatureDetector::TYPE_7_12);
+    detector->detect(face_gamma_out, key_points);
+    cv::drawKeypoints(face_gamma_out, key_points, fast_7_12, cv::Scalar::all(-1), 0);
+
+    cv::imshow("3.FAST关键点7", fast_7_12);
+
+    cv::waitKey();
+}
+
 int main(int argc, char * argv[])
 {
     // 演示 gamma 校正
-    //hog_gamma_adjust_test();
+    //HOG_gamma_adjust_test();
 
     // 演示计算 HOG 梯度
-    hog_gradient_test();
+    //HOG_gradient_test();
+
+    // 演示 FAST (SFIT opencv 2.x 才有, 3.x 版本没了)
+    FAST_test();
+
+    cvDestroyAllWindows();
 
     return 0;
 }
