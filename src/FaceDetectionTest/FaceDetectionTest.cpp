@@ -83,7 +83,7 @@ void hog_gamma_adjust_test()
     cv::waitKey();
 }
 
-void hog_gridient_test()
+void hog_gradient_test()
 {
     cv::Mat face = cv::imread("..\\..\\..\\data\\FaceDetectionTest\\hog\\test.bmp", cv::IMREAD_ANYCOLOR);
     cv::Mat face_gray;
@@ -156,7 +156,7 @@ int main(int argc, char * argv[])
     //hog_gamma_adjust_test();
 
     // —› æº∆À„ HOG Ã›∂»
-    hog_gridient_test();
+    hog_gradient_test();
 
     return 0;
 }
