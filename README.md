@@ -4,9 +4,9 @@ Some test routines about OpenCV.
 
 ## Description
 
-In order to reduce the size of the repository file, do not cause duplication of resources waste (the most important is uploaded to GitHub very slow, but also to determine is a waste of resources), `/deps` directory the following "`opencv build file for vc14`" need to download yourself.
+In order to reduce the size of the repository file, do not cause duplication of resources waste (the most important is uploaded to GitHub very slow, but also to determine is a waste of resources), `/deps` directory the following "`opencv build file for vc14`" need to download yourself, here we choose newest version now: `[3.2.0]`.
 
-The download address is as follows: [OpenCV-3.2.0-vc14.exe](https://github.com/opencv/opencv/releases/download/3.2.0/opencv-3.2.0-vc14.exe)
+The download address of `opencv build file for vc14 [3.2.0]`  is as follows: [opencv-3.2.0-vc14.exe](https://github.com/opencv/opencv/releases/download/3.2.0/opencv-3.2.0-vc14.exe)
 
 ## Instructions
 
@@ -20,9 +20,9 @@ After unpacking the `[opencv-3.2.0-vc14.exe]` file, just copy the `build` direct
 
 ## 说明
 
-为了减小仓库的文件大小，不造成重复资源的浪费（最主要是上传到 `GitHub` 速度很慢，而且也的确是浪费资源），`/deps` 目录下面的 `opencv build file for vc14` 文件需要自己下载。
+为了减小仓库的文件大小，不造成重复资源的浪费（最主要是上传到 `GitHub` 速度很慢，而且也的确是浪费资源），`/deps` 目录下面的 `opencv build file for vc14` 文件需要自己下载，这里我们选择目前的最新版：`[3.2.0]` 版本。
 
-下载地址如下：[opencv-3.2.0-vc14.exe](https://github.com/opencv/opencv/releases/download/3.2.0/opencv-3.2.0-vc14.exe)
+`opencv build file for vc14 [3.2.0]` 下载地址如下：[opencv-3.2.0-vc14.exe](https://github.com/opencv/opencv/releases/download/3.2.0/opencv-3.2.0-vc14.exe)
 
 ## 使用方法
 
