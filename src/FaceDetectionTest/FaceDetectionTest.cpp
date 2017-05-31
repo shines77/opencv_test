@@ -11,7 +11,11 @@
 #include <opencv2/objdetect/objdetect.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/imgcodecs/imgcodecs.hpp>
+#include <opencv2/imgcodecs/imgcodecs_c.h>
 #include <opencv2/features2d.hpp>
+
+#include "get_char.h"
 
 //
 // See: http://blog.csdn.net/hujingshuang/article/details/47337707/
@@ -207,18 +211,185 @@ void FAST_test()
     cv::waitKey();
 }
 
-int main(int argc, char * argv[])
+//
+// See: http://blog.csdn.net/morewindows/article/details/8239625
+//
+
+void canny_test()
 {
-    // 演示 gamma 校正
-    //HOG_gamma_adjust_test();
+    IplImage * src_gray = cvLoadImage("..\\..\\..\\data\\FaceDetectionTest\\canny\\yaoyao.png", CV_LOAD_IMAGE_GRAYSCALE);
+    IplImage * canny10 = cvCreateImage(cvGetSize(src_gray), IPL_DEPTH_8U, 1);
+    IplImage * canny20 = cvCreateImage(cvGetSize(src_gray), IPL_DEPTH_8U, 1);
+    IplImage * canny30 = cvCreateImage(cvGetSize(src_gray), IPL_DEPTH_8U, 1);
+    IplImage * canny40 = cvCreateImage(cvGetSize(src_gray), IPL_DEPTH_8U, 1);
+    IplImage * canny50 = cvCreateImage(cvGetSize(src_gray), IPL_DEPTH_8U, 1);
+    IplImage * canny60 = cvCreateImage(cvGetSize(src_gray), IPL_DEPTH_8U, 1);
+    IplImage * canny80 = cvCreateImage(cvGetSize(src_gray), IPL_DEPTH_8U, 1);
+    IplImage * canny100 = cvCreateImage(cvGetSize(src_gray), IPL_DEPTH_8U, 1);
 
-    // 演示计算 HOG 梯度
-    //HOG_gradient_test();
+    cvShowImage("原图", src_gray); 
 
-    // 演示 FAST (SFIT opencv 2.x 才有, 3.x 版本没了)
-    FAST_test();
+    // canny 边缘检测
+    double threshold = 10.0;
+    cvCanny(src_gray, canny10, threshold, threshold * 3, 3);
+    cvShowImage("threshold=10", canny10);
+
+    threshold = 20.0;
+    cvCanny(src_gray, canny20, threshold, threshold * 3, 3);
+    cvShowImage("threshold=20", canny20);
+
+    threshold = 30.0;
+    cvCanny(src_gray, canny30, threshold, threshold * 3, 3);
+    cvShowImage("threshold=30", canny30);
+
+    threshold = 40.0;
+    cvCanny(src_gray, canny40, threshold, threshold * 3, 3);
+    cvShowImage("threshold=40", canny40);
+
+    threshold = 50.0;
+    cvCanny(src_gray, canny50, threshold, threshold * 3, 3);
+    cvShowImage("threshold=50", canny50);
+
+    threshold = 60.0;
+    cvCanny(src_gray, canny60, threshold, threshold * 3, 3);
+    cvShowImage("threshold=60", canny60);
+
+    threshold = 80.0;
+    cvCanny(src_gray, canny80, threshold, threshold * 3, 3);
+    cvShowImage("threshold=80", canny80);
+
+    threshold = 100.0;
+    cvCanny(src_gray, canny100, threshold, threshold * 3, 3);
+    cvShowImage("threshold=100", canny100);
+
+    cv::waitKey();
 
     cvDestroyAllWindows();
 
+    if (src_gray)
+        cvReleaseImage(&src_gray);
+    if (canny10)
+        cvReleaseImage(&canny10);
+    if (canny20)
+        cvReleaseImage(&canny20);
+    if (canny30)
+        cvReleaseImage(&canny30);
+    if (canny40)
+        cvReleaseImage(&canny40);
+    if (canny50)
+        cvReleaseImage(&canny50);
+    if (canny60)
+        cvReleaseImage(&canny60);
+    if (canny80)
+        cvReleaseImage(&canny80);
+    if (canny100)
+        cvReleaseImage(&canny100);
+}
+
+int get_user_choice(int lang_id, char * display_text, char * tips_format_text_,
+                    int min_value, int max_value, int default_value)
+{
+    const int exit_value = GETCH_EXIT_PROGRAM;
+    int input_value      = GETCH_DEFUALT_VALUE;
+    int tmp_value;
+
+    char * tips_format_text = "你的选择是: [退出 = %d]: ? ";
+
+    printf("%s", display_text);
+    if (tips_format_text_ == NULL)
+        printf(tips_format_text, exit_value);
+    else
+        printf(tips_format_text_, exit_value);
+    printf("%d", default_value);
+
+    int nchar;
+    do {
+        nchar = jm_getch();
+        if (nchar == MM_VT_KEY_RETURN) {
+            if (input_value == GETCH_DEFUALT_VALUE)
+                input_value = default_value;
+            break;
+        }
+        else if (nchar >= '0' && nchar <= '9') {
+            tmp_value = nchar - '0';
+            if (tmp_value >= min_value && tmp_value <= max_value) {
+                input_value = tmp_value;
+                printf("\x08%d", input_value);
+                fflush(stdout);
+            }
+            else {
+                // 如果输入的字符不在指定的范围, 显示一下(500毫秒)立刻恢复最后一次正确的选项值
+                printf("\x08%d", tmp_value);
+                fflush(stdout);
+
+                // 休眠 500 毫秒
+                jm_sleep(500);
+
+                if (input_value != GETCH_DEFUALT_VALUE)
+                    printf("\x08%d", input_value);
+                else
+                    printf("\x08%d", default_value);
+                fflush(stdout);
+            }
+        }
+    } while (1);
+
+    printf("\n\n");
+    return input_value;
+}
+
+int get_test_func(int default_id = 4)
+{
+    char * display_text =
+        "请选择测试编号:\n"
+        "\n"
+        "[1] = HOG gamma 校正.\n"
+        "[2] = HOG 梯度计算.\n"
+        "[3] = FAST 特征关键点.\n"
+        "[4] = Canny 边缘查找.\n"
+        "\n"
+        "[0] = 退出程序.\n\n"
+        ""
+        "输入你的选择后, 并按 [回车键] 确定.\n\n";
+
+    char * tips_format_text = "你的选择是: [%d = 退出]: ? ";
+
+    return get_user_choice(0, display_text, tips_format_text, 0, 4, default_id);
+}
+
+int main(int argc, char * argv[])
+{
+Retry:
+    int test_func_id = get_test_func();
+
+    switch (test_func_id) {
+    case 1:
+        // 演示 gamma 校正
+        HOG_gamma_adjust_test();
+        break;
+
+    case 2:
+        // 演示计算 HOG 梯度
+        HOG_gradient_test();
+        break;
+
+    case 3:
+        // 演示 FAST 特征关键点 (SFIT opencv 2.x 才有, 3.x 版本没了)
+        FAST_test();
+        break;
+
+    case 4:
+        // Canny 边缘检测
+        canny_test();
+        break;
+
+    default:
+        printf("\n");
+        printf("无效的选择, 请重新选择.\n\n");
+        goto Retry;
+        break;
+    } 
+
+    cvDestroyAllWindows();
     return 0;
 }

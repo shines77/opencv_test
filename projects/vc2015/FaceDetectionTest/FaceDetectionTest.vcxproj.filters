@@ -14,5 +14,13 @@
     <ClCompile Include="..\..\..\src\FaceDetectionTest\FaceDetectionTest.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\FaceDetectionTest\get_char.c">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\FaceDetectionTest\get_char.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

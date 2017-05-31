@@ -20,6 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\FaceDetectionTest\FaceDetectionTest.cpp" />
+    <ClCompile Include="..\..\..\src\FaceDetectionTest\get_char.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\FaceDetectionTest\get_char.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1EB53A5C-91D7-4C5D-8773-267568CA87B3}</ProjectGuid>
