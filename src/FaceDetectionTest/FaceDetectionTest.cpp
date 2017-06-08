@@ -19,9 +19,9 @@
 
 void wait_any_key()
 {
-    printf("请先用鼠标点击任意一张图片, 再按下任意按键以关闭所以窗口 ...");
+    printf("先用鼠标点选任意一张图片, 再按下任意键, 以关闭所以窗口 ...");
     cv::waitKey();
-    printf("\n\n\n");
+    printf("\n\n");
     cvDestroyAllWindows();
 }
 
@@ -399,7 +399,9 @@ Retry:
 
     default:
         printf("\n");
-        printf("无效的输入, 请重新选择.\n");
+        printf("---------------------------------------------\n");
+        printf("错误: 无效的输入, 请重新选择.\n");
+        printf("---------------------------------------------\n");
         printf("\n\n");
         break;
     } 
