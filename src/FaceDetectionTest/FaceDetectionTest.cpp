@@ -17,6 +17,14 @@
 
 #include "get_char.h"
 
+void wait_any_key()
+{
+    printf("请先用鼠标点击任意一张图片, 再按下任意按键以关闭所以窗口 ...");
+    cv::waitKey();
+    printf("\n\n\n");
+    cvDestroyAllWindows();
+}
+
 //
 // See: http://blog.csdn.net/hujingshuang/article/details/47337707/
 //
@@ -85,7 +93,7 @@ void HOG_gamma_adjust_test()
 
     cv::imshow("1.Gamma校正[2]", face_gamma_out);
 
-    cv::waitKey();
+    wait_any_key();
 }
 
 void HOG_gradient_test()
@@ -152,7 +160,8 @@ void HOG_gradient_test()
 
     cv::imshow("2.梯度图", gradient_out);
     cv::imshow("2.梯度角度", theta_out);
-    cv::waitKey();
+    
+    wait_any_key();
 }
 
 void FAST_test()
@@ -208,7 +217,7 @@ void FAST_test()
 
     cv::imshow("3.FAST关键点7", fast_7_12);
 
-    cv::waitKey();
+    wait_any_key();
 }
 
 //
@@ -262,9 +271,7 @@ void canny_test()
     cvCanny(src_gray, canny100, threshold, threshold * 3, 3);
     cvShowImage("threshold=100", canny100);
 
-    cv::waitKey();
-
-    cvDestroyAllWindows();
+    wait_any_key();
 
     if (src_gray)
         cvReleaseImage(&src_gray);
@@ -286,21 +293,24 @@ void canny_test()
         cvReleaseImage(&canny100);
 }
 
-int get_user_choice(int lang_id, char * display_text, char * tips_format_text_,
+int get_user_choice(int lang_id, const char * display_text, const char * tips_format_text_,
                     int min_value, int max_value, int default_value)
 {
     const int exit_value = GETCH_EXIT_PROGRAM;
     int input_value      = GETCH_DEFUALT_VALUE;
     int tmp_value;
 
-    char * tips_format_text = "你的选择是: [退出 = %d]: ? ";
+    const char * tips_format_text = "你的选择是: ";
 
     printf("%s", display_text);
     if (tips_format_text_ == NULL)
         printf(tips_format_text, exit_value);
     else
         printf(tips_format_text_, exit_value);
-    printf("%d", default_value);
+    if (default_value == -1)
+        printf("?");
+    else
+        printf("%d", default_value);
 
     int nchar;
     do {
@@ -338,9 +348,9 @@ int get_user_choice(int lang_id, char * display_text, char * tips_format_text_,
     return input_value;
 }
 
-int get_test_func(int default_id = 4)
+int get_test_func(int default_id = -1)
 {
-    char * display_text =
+    const char * display_text =
         "请选择测试编号:\n"
         "\n"
         "[1] = HOG gamma 校正.\n"
@@ -350,9 +360,9 @@ int get_test_func(int default_id = 4)
         "\n"
         "[0] = 退出程序.\n\n"
         ""
-        "输入你的选择后, 并按 [回车键] 确定.\n\n";
+        "输入你的选择后, 并按 [回车键] 以确定选择.\n\n";
 
-    char * tips_format_text = "你的选择是: [%d = 退出]: ? ";
+    const char * tips_format_text = "你的选择是: ";
 
     return get_user_choice(0, display_text, tips_format_text, 0, 4, default_id);
 }
@@ -363,6 +373,10 @@ Retry:
     int test_func_id = get_test_func();
 
     switch (test_func_id) {
+    case 0:
+        cvDestroyAllWindows();
+        goto Exit;
+
     case 1:
         // 演示 gamma 校正
         HOG_gamma_adjust_test();
@@ -385,11 +399,13 @@ Retry:
 
     default:
         printf("\n");
-        printf("无效的选择, 请重新选择.\n\n");
-        goto Retry;
+        printf("无效的输入, 请重新选择.\n");
+        printf("\n\n");
         break;
     } 
 
-    cvDestroyAllWindows();
+    goto Retry;
+
+Exit:
     return 0;
 }
